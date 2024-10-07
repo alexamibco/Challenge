@@ -1,24 +1,23 @@
-import { lazy, Suspense } from 'react';
-import { createBrowserRouter } from 'react-router-dom';
+import { lazy, Suspense } from "react";
+import { createBrowserRouter } from "react-router-dom";
 
-import { ProtectedRoute } from './ProtectedRoute';
+import { ProtectedRoute } from "./ProtectedRoute";
 
+import { ErrorPage } from "../Pages/ErrorPage";
+import { LoginPage } from "../Pages/LoginPage";
+import Home from "../shared/components/Home/Home";
+import { TasksPage } from "../features/Tasks_redux/pages/TasksPage";
+import { RegisterPage } from "../Pages/Registerpage";
+import { Products } from "../features/Products/Products";
+import { ProductDetailsView } from "../features/Products/ProductDetailsView";
 
-import { ErrorPage } from '../Pages/ErrorPage';
-import { LoginPage } from '../Pages/LoginPage';
-import Home from '../shared/components/Home/Home';
-import { TasksPage } from '../features/Tasks_redux/pages/TasksPage';
-import { RegisterPage } from '../Pages/Registerpage';
-import { Products } from '../features/Products/Products';
-
-
-const MainLayout = lazy(() => import('../Layouts/MainLayout'));
+const MainLayout = lazy(() => import("../Layouts/MainLayout"));
 
 // const PostsPage = lazy(() => import('../Pages/PostsPage'));
 // const PostPage = lazy(() => import('../Pages/PostPage'));
 
 const routes = {
-  path: '/',
+  path: "/",
   element: (
     <Suspense fallback={<div>Loading...</div>}>
       <MainLayout />
@@ -27,7 +26,7 @@ const routes = {
   errorElement: <ErrorPage />,
   children: [
     {
-      path: '/',
+      path: "/",
       element: (
         <Suspense fallback={<div>Loading...</div>}>
           <Home />
@@ -35,19 +34,22 @@ const routes = {
       ),
     },
     {
-      path: '/login',
+      path: "/login",
       element: <LoginPage />,
     },
     {
-      path: '/register',
+      path: "/register",
       element: <RegisterPage />,
     },
     {
-      path: '/products',
+      path: "/products",
       element: <Products />,
     },
+    { path: "/product/:id", 
+      element: <ProductDetailsView /> 
+    },
     {
-      path: '/tasks',
+      path: "/tasks",
       element: (
         <ProtectedRoute>
           <TasksPage />,
